@@ -33,7 +33,7 @@ export function BoardWrite() {
           description: "새 글이 저장되었습니다",
           status: "success",
         });
-        navigate("/");
+        navigate("/"); //글 저장이 완료되면 home으로 이동함
       })
       .catch((error) => {
         console.log(error.response.status);
