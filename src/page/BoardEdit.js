@@ -51,6 +51,7 @@ export function BoardEdit() {
           onChange={(e) =>
             updateBoard((draft) => {
               draft.content = e.target.value;
+
             })
           }
         />
