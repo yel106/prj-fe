@@ -30,6 +30,17 @@ export function BoardEdit() {
     return <Spinner />;
   }
 
+  function handleSubmit() {
+    // 저장 버튼 클릭 시
+    // PUT방식 /api/board/edit  , get, post, delete, put, patch, head, option 방식이 있음.
+    //넘겨질 데이터가 board
+    axios
+      .put("/api/board/edit", board)
+      .then(() => console.log("잘 됨"))
+      .catch(() => console.log(" 잘 안 됨"))
+      .finally(() => console.log("끝"));
+  }
+
   return (
     <Box>
       <h1>{id}번 글 수정</h1>
@@ -51,7 +62,6 @@ export function BoardEdit() {
           onChange={(e) =>
             updateBoard((draft) => {
               draft.content = e.target.value;
-
             })
           }
         />
@@ -67,7 +77,9 @@ export function BoardEdit() {
           }
         />
       </FormControl>
-      <Button colorScheme="blue">저장</Button>
+      <Button colorScheme="blue" onClick={handleSubmit}>
+        저장
+      </Button>
       {/* navigate(-1) : 이전 경로로 이동 */}
       <Button onClick={() => navigate(-1)}>취소</Button>
     </Box>
