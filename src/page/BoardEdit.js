@@ -43,10 +43,11 @@ export function BoardEdit() {
   function handleSubmit() {
     axios
       .put("/api/board/edit", board)
-      .then((response) => { toast( {
-        description: "수정 되었습니다.",
-        status: "success",
-      })
+      .then((response) => {
+        toast({
+          description: "수정 되었습니다.",
+          status: "success",
+        });
       })
       .catch(() => console.log(""))
       .finally(() => console.log(""));
