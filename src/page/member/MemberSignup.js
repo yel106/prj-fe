@@ -6,6 +6,7 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import axios from "axios";
@@ -15,8 +16,9 @@ export function MemberSignup() {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [email, setEmail] = useState("");
-
   const [idAvailable, setIdAvailable] = useState(false);
+
+  const toast = useToast();
 
   let submitAvailable = true;
 
@@ -48,16 +50,22 @@ export function MemberSignup() {
     const searchParam = new URLSearchParams();
     searchParam.set("id", id);
 
-    console.log(searchParam.toString());
-
     axios
       .get("/api/member/check?" + searchParam.toString())
       .then(() => {
         setIdAvailable(false);
+        toast({
+          description: "이미 사용 중인 ID입니다.",
+          status: "warning",
+        });
       })
       .catch((error) => {
         if (error.response.status === 404) {
           setIdAvailable(true);
+          toast({
+            description: "사용 가능한 ID입니다.",
+            status: "success",
+          });
         }
       });
   }
@@ -77,7 +85,7 @@ export function MemberSignup() {
           />
           <Button onClick={handleIdCheck}>중복확인</Button>
         </Flex>
-        <FormErrorMessage>ID 중복 체크를 해주세요</FormErrorMessage>
+        <FormErrorMessage>ID 중복체크를 해주세요.</FormErrorMessage>
       </FormControl>
       <FormControl isInvalid={password.length === 0}>
         <FormLabel>password</FormLabel>
@@ -86,6 +94,8 @@ export function MemberSignup() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
+        <FormErrorMessage>암호를 입력해 주세요.</FormErrorMessage>
       </FormControl>
       <FormControl isInvalid={password != passwordCheck}>
         <FormLabel>password 확인</FormLabel>
@@ -94,7 +104,6 @@ export function MemberSignup() {
           value={passwordCheck}
           onChange={(e) => setPasswordCheck(e.target.value)}
         />
-        <FormErrorMessage>암호를 입력해주세요</FormErrorMessage>
         <FormErrorMessage>암호가 다릅니다.</FormErrorMessage>
       </FormControl>
       <FormControl>
