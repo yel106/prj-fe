@@ -20,7 +20,7 @@ export function MemberSignup() {
 
   let submitAvailable = true;
 
-  if (idAvailable) {
+  if (!idAvailable) {
     submitAvailable = false;
   }
 
