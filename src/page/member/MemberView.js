@@ -75,6 +75,25 @@ export function MemberView() {
       .finally(() => onClose());
   }
 
+  function handleEdit() {
+    axios
+      .put("/api/member?" + params.toString())
+      .then(() => {
+        toast({
+          description: "수정 완료되었습니다",
+          status: "success",
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        toast({
+          description: "수정 중 문제가 발생했습니다.",
+          status: "error",
+        });
+      })
+      .finally(() => onClose());
+  }
+
   return (
     <Box>
       <h1>{member.id}님 정보</h1>
@@ -86,7 +105,9 @@ export function MemberView() {
         <FormLabel>email</FormLabel>
         <Input value={member.email} readOnly />
       </FormControl>
-      <Button colorScheme="pink">수정</Button>
+      <Button colorScheme="pink" onClick={onOpen}>
+        수정
+      </Button>
       <Button colorScheme="blue" onClick={onOpen}>
         탈퇴
       </Button>
@@ -95,7 +116,7 @@ export function MemberView() {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>삭제 확인</ModalHeader>
+          <ModalHeader>탈퇴 확인</ModalHeader>
           <ModalCloseButton />
           <ModalBody>탈퇴 하시겠습니까?</ModalBody>
 
@@ -103,6 +124,22 @@ export function MemberView() {
             <Button onClick={onClose}>닫기</Button>
             <Button onClick={handleDelete} colorScheme="red">
               탈퇴
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>수정 확인</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>수정 하시겠습니까?</ModalBody>
+
+          <ModalFooter>
+            <Button onClick={onClose}>닫기</Button>
+            <Button onClick={handleEdit} colorScheme="blue">
+              수정
             </Button>
           </ModalFooter>
         </ModalContent>
