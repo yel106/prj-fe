@@ -17,9 +17,11 @@ export function MemberSignup() {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [email, setEmail] = useState("");
+  const [nickName, setNickName] = useState("");
 
   const [idAvailable, setIdAvailable] = useState(false);
   const [emailAvailable, setEmailAvailable] = useState(false);
+  const [nickNameAvailable, setNickNameAvailable] = useState(false);
 
   const toast = useToast();
   const navigate = useNavigate();
@@ -42,12 +44,16 @@ export function MemberSignup() {
     submitAvailable = false;
   }
 
+  if (!nickNameAvailable) {
+    submitAvailable = false;
+  }
   function handleSubmit() {
     axios
       .post("/api/member/signup", {
         id,
         password,
         email,
+        nickName,
       })
       .then(() => {
         //toast
@@ -121,6 +127,30 @@ export function MemberSignup() {
       });
   }
 
+  function handleNickNameCheck() {
+    const params = new URLSearchParams();
+    params.set("nickName", nickName);
+
+    axios
+      .get("/api/member/check?" + params)
+      .then(() => {
+        setNickNameAvailable(false);
+        toast({
+          description: "이미 사용 중인 별명입니다.",
+          status: "warning",
+        });
+      })
+      .catch((error) => {
+        if (error.response.status === 404) {
+          setNickNameAvailable(true);
+          toast({
+            description: "사용 가능한 별명입니다.",
+            status: "success",
+          });
+        }
+      });
+  }
+
   return (
     <Box>
       <h1>회원 가입</h1>
@@ -157,6 +187,7 @@ export function MemberSignup() {
         />
         <FormErrorMessage>암호가 다릅니다.</FormErrorMessage>
       </FormControl>
+
       <FormControl isInavalid={!emailAvailable}>
         <FormLabel>email</FormLabel>
         <Flex>
@@ -171,6 +202,22 @@ export function MemberSignup() {
           <Button onClick={handleEmailCheck}>중복체크</Button>
         </Flex>
         <FormErrorMessage>email 중복 체크를 해주세요.</FormErrorMessage>
+      </FormControl>
+
+      <FormControl isInvalid={!nickNameAvailable}>
+        <FormLabel>nickName</FormLabel>
+        <Flex>
+          <Input
+            type="text"
+            value={nickName}
+            onChange={(e) => {
+              setNickName(e.target.value);
+              setNickNameAvailable(false);
+            }}
+          />
+          <Button onClick={handleNickNameCheck}>중복체크</Button>
+        </Flex>
+        <FormErrorMessage>nickName 중복 체크를 해주세요.</FormErrorMessage>
       </FormControl>
       <Button
         isDisabled={!submitAvailable}
