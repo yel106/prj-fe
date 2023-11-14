@@ -19,7 +19,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { LoginContext } from "../../App";
+import { LoginContext } from "../../component/LoginProvider";
 
 export function BoardView() {
   const [board, setBoard] = useState(null);
@@ -30,7 +30,7 @@ export function BoardView() {
 
   const { id } = useParams();
 
-  const { hasAccess } = useContext(LoginContext);
+  const { hasAccess, isAdmin } = useContext(LoginContext);
 
   useEffect(() => {
     axios
@@ -81,7 +81,7 @@ export function BoardView() {
         <Input value={board.inserted} readOnly />
       </FormControl>
 
-      {hasAccess(board.writer) && (
+      {(hasAccess(board.writer) || isAdmin()) && (
         <Box>
           <Button colorScheme="purple" onClick={() => navigate("/edit/" + id)}>
             수정
