@@ -53,13 +53,30 @@ function App(props) {
     return login !== "";
   }
 
+  function isAdmin() {
+    if (login.auth) {
+      //admin이 있으면 admin이라고 판단
+      return login.auth.some((elem) => elem.name === "admin");
+    }
+
+    return false;
+  }
+
+  // function isManager() {
+  //   login.auth.some((elem) => elem.name === "manager");
+  // }
+  //
+  // function hasAuth(auth) {
+  //   login.auth.some((elem) => elem.name === auth);
+  // }
+
   function hasAccess(userId) {
     return login.id === userId;
   }
 
   return (
     <LoginContext.Provider
-      value={{ login, fetchLogin, isAuthenticated, hasAccess }}
+      value={{ login, fetchLogin, isAuthenticated, hasAccess, isAdmin }}
     >
       <RouterProvider router={routes} />;
     </LoginContext.Provider>
