@@ -65,7 +65,7 @@ export function MemberEdit() {
   //암호 작성하면 새 암호, 암호확인 체크
   let passwordChecked = false;
 
-  if (passwordChecked == password) {
+  if (passwordCheck === password) {
     passwordChecked = true;
   }
 
@@ -112,7 +112,7 @@ export function MemberEdit() {
     // {id, password, email, nickName}
 
     axios
-      .put("/api/member/edit", { id: member.id, password, email })
+      .put("/api/member/edit", { id: member.id, password, email, nickName })
       .then(() => {
         toast({
           description: "회원정보가 수정되었습니다.",
