@@ -23,6 +23,7 @@ function CommentForm({ boardId }) {
 function CommentList({ boardId }) {
   const [commentList, setCommentList] = useState(null);
 
+  /*  +params 뒤에 toString 안써도 됨. */
   useEffect(() => {
     const params = new URLSearchParams();
     params.set("id", boardId);
