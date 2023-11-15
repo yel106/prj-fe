@@ -13,9 +13,19 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 function CommentForm({ boardId, isSubmitting, onSubmit }) {
   const [comment, setComment] = useState("");
+
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  useEffect(() => {
+    axios
+      .get("/api/comment/edit" + id)
+      .then((response) => setComment(response.data));
+  }, []);
 
   function handleSubmit() {
     onSubmit({ boardId, comment });
@@ -32,6 +42,10 @@ function CommentForm({ boardId, isSubmitting, onSubmit }) {
 }
 
 function CommentList({ commentList }) {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  function handleDelete() {}
+
   return (
     <Card>
       <CardHeader>
@@ -39,7 +53,6 @@ function CommentList({ commentList }) {
       </CardHeader>
       <CardBody>
         <Stack divider={<StackDivider />} spacing="4">
-          {/* TODO: 댓글 작성후 re-render */}
           {commentList.map((comment) => (
             <Box key={comment.id}>
               <Flex justifyContent="space-between">
@@ -48,6 +61,8 @@ function CommentList({ commentList }) {
               </Flex>
               <Text sx={{ whiteSpace: "pre-wrap" }} pt="2" fontSize="sm">
                 {comment.comment}
+                <Button onClick={() => navigate("/edit/" + id)}>수정</Button>
+                <Button onClick={handleDelete}>삭제</Button>
               </Text>
             </Box>
           ))}
