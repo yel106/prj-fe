@@ -14,20 +14,19 @@ import {
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-function CommentForm({ boardId }) {
+function CommentForm({ boardId, isSubmitting, onSubmit }) {
   const [comment, setComment] = useState("");
 
   function handleSubmit() {
-    axios.post("/api/comment/add", {
-      boardId,
-      comment,
-    });
+    onSubmit({ boardId, comment });
   }
 
   return (
     <Box>
       <Textarea value={comment} onChange={(e) => setComment(e.target.value)} />
-      <Button onClick={handleSubmit}>쓰기</Button>
+      <Button isDisabled={isSubmitting} onClick={handleSubmit}>
+        쓰기
+      </Button>
     </Box>
   );
 }
@@ -39,6 +38,7 @@ function CommentList({ boardId }) {
   useEffect(() => {
     const params = new URLSearchParams();
     params.set("id", boardId);
+
     axios
       .get("/api/comment/list?" + params)
       .then((response) => setCommentList(response.data));
@@ -70,9 +70,23 @@ function CommentList({ boardId }) {
 }
 
 export function CommentContainer({ boardId }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  function handleSubmit(comment) {
+    setIsSubmitting(true);
+
+    axios
+      .post("/api/comment/add", comment)
+      .finally(() => setIsSubmitting(false));
+  }
+
   return (
     <Box>
-      <CommentForm boardId={boardId} />
+      <CommentForm
+        boardId={boardId}
+        isSubmitting={isSubmitting}
+        onSubmit={handleSubmit}
+      />
       <CommentList boardId={boardId} />
     </Box>
   );
