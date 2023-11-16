@@ -56,8 +56,6 @@ function CommentItem({
   const toast = useToast();
 
   function handleSubmit() {
-    // TODO : 응답 코드에 따른 기능들
-
     setIsSubmitting(true);
 
     axios
@@ -92,7 +90,7 @@ function CommentItem({
   return (
     <Box>
       <Flex justifyContent="space-between">
-        <Heading size="xs">{comment.memberId}</Heading>
+        <Heading size="xs">{comment.memberNickName}</Heading>
         <Text fontSize="xs">{comment.inserted}</Text>
       </Flex>
       <Flex justifyContent="space-between" alignItems="center">
