@@ -9,7 +9,7 @@ import {
 import { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { LoginContext } from "../../component/LoginProvider";
+import { LoginContext } from "../../component/LogInProvider";
 
 export function MemberLogin() {
   const [id, setId] = useState("");

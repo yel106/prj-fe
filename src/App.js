@@ -16,7 +16,7 @@ import { MemberView } from "./page/member/MemberView";
 import { MemberEdit } from "./page/member/MemberEdit";
 import { MemberLogin } from "./page/member/MemberLogin";
 import axios from "axios";
-import LoginProvider from "./component/LoginProvider";
+import LoginProvider from "./component/LogInProvider";
 
 const routes = createBrowserRouter(
   createRoutesFromElements(
