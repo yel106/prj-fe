@@ -25,7 +25,8 @@ import {
 import { LoginContext } from "../../component/LogInProvider";
 import { CommentContainer } from "../../component/CommentContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as emptyHeart } from "@fortawesome/free-regular-svg-icons";
+import { faHeart as fullHeart } from "@fortawesome/free-solid-svg-icons";
 import * as PropTypes from "prop-types";
 
 function LikeContainer({ like, onClick }) {
@@ -34,19 +35,19 @@ function LikeContainer({ like, onClick }) {
   }
 
   return (
-    <Button variant="ghost" size="xl" onClick={onClick}>
-      {/*<FontAwesomeIcon icon={faHeart} size="2xl" />*/}
-      {like.like && <Text>꽉찬 하트</Text>}
-      {like.like || <Text>빈 하트 </Text>}
-      <Text>{like.countLike}</Text>
-    </Button>
+    <Flex gap={2}>
+      <Button variant="ghost" size="xl" onClick={onClick}>
+        {like.like && <FontAwesomeIcon icon={fullHeart} size="2xl" />}
+        {like.like || <FontAwesomeIcon icon={emptyHeart} size="2xl" />}
+      </Button>
+      <Heading size="lg">{like.countLike}</Heading>
+    </Flex>
   );
 }
 
 export function BoardView() {
   const [board, setBoard] = useState(null);
   const [like, setLike] = useState(null);
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
   const navigate = useNavigate();
