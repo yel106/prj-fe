@@ -3,6 +3,7 @@ import {
   Button,
   FormControl,
   FormLabel,
+  Image,
   Input,
   Modal,
   ModalBody,
@@ -20,9 +21,11 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useImmer } from "use-immer";
 import axios from "axios";
+import { addPointerInfo } from "framer-motion";
 
 export function BoardEdit() {
   const [board, updateBoard] = useImmer(null);
+  const [image, updateImage] = useImmer([]);
 
   // /edit/:id
   const { id } = useParams();
@@ -36,6 +39,12 @@ export function BoardEdit() {
     axios
       .get("/api/board/id/" + id)
       .then((response) => updateBoard(response.data));
+  }, []);
+
+  useEffect(() => {
+    // axios
+    //   .get("/api/edit/id/" + id)
+    //   .then((response) => updateImage(response.data));
   }, []);
 
   if (board === null) {
@@ -72,6 +81,10 @@ export function BoardEdit() {
       .finally(() => onClose());
   }
 
+  function handleDelete() {
+    axios.delete();
+  }
+
   return (
     <Box>
       <h1>{id}번 글 수정</h1>
@@ -96,6 +109,18 @@ export function BoardEdit() {
             })
           }
         />
+      </FormControl>
+
+      {/* 수정할 때 이미지 보이게 하기 */}
+      <FormControl>
+        <FormLabel>이미지 파일</FormLabel>
+        {board.files.map((board) => (
+          <Box key={board.id} my="5px" border="3px solid black">
+            <Image width="100%" src={board.url} alt={board.name} />
+          </Box>
+        ))}
+        <Input type="file" accept="image/*" multiple />
+        <Button onClick={() => handleDelete(board.url)}>파일 삭제</Button>
       </FormControl>
 
       <Button colorScheme="blue" onClick={onOpen}>

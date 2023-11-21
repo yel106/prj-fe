@@ -77,7 +77,7 @@ export function BoardWrite() {
             type="file"
             accept="image/*"
             multiple
-            onChange={(e) => setUploadFiles(e.target.uploadFiles)}
+            onChange={(e) => setUploadFiles(e.target.files)}
           />
           <FormHelperText>
             {" "}
