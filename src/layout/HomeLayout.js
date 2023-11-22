@@ -5,7 +5,8 @@ import { NavBar } from "../component/NavBar";
 
 export function HomeLayout() {
   return (
-    <Box>
+    //base: 0px, md: 0~480px
+    <Box mx={{ base: 0, md: 10, lg: 40 }}>
       <NavBar />
       <Outlet />
     </Box>
