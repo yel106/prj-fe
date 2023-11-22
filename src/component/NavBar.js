@@ -49,6 +49,9 @@ export function NavBar() {
       {isAuthenticated() && <Box>{login.nickName} 님</Box>}
 
       <Button
+        borderRadius={0}
+        variant="ghost"
+        size="lg"
         leftIcon={<FontAwesomeIcon icon={faHouse} />}
         onClick={() => navigate("/")}
       >
@@ -56,14 +59,20 @@ export function NavBar() {
       </Button>
       {isAuthenticated() && (
         <Button
+          borderRadius={0}
+          variant="ghost"
+          size="lg"
           leftIcon={<FontAwesomeIcon icon={faFeatherPointed} />}
           onClick={() => navigate("/write")}
         >
-          write
+          글 작성
         </Button>
       )}
       {isAuthenticated() || (
         <Button
+          borderRadius={0}
+          variant="ghost"
+          size="lg"
           leftIcon={<FontAwesomeIcon icon={faUserPlus} />}
           onClick={() => navigate("/signup")}
         >
@@ -72,6 +81,9 @@ export function NavBar() {
       )}
       {isAdmin() && (
         <Button
+          borderRadius={0}
+          variant="ghost"
+          size="lg"
           leftIcon={<FontAwesomeIcon icon={faAddressBook} />}
           onClick={() => navigate("/member/list")}
         >
@@ -80,6 +92,9 @@ export function NavBar() {
       )}
       {isAuthenticated() && (
         <Button
+          borderRadius={0}
+          variant="ghost"
+          size="lg"
           leftIcon={<FontAwesomeIcon icon={faCircleInfo} />}
           onClick={() => navigate("/member?" + urlParams.toString())}
         >
@@ -88,6 +103,9 @@ export function NavBar() {
       )}
       {isAuthenticated() || (
         <Button
+          borderRadius={0}
+          variant="ghost"
+          size="lg"
           leftIcon={<FontAwesomeIcon icon={faArrowRightToBracket} />}
           onClick={() => navigate("/login")}
         >
@@ -96,6 +114,9 @@ export function NavBar() {
       )}
       {isAuthenticated() && (
         <Button
+          borderRadius={0}
+          variant="ghost"
+          size="lg"
           leftIcon={<FontAwesomeIcon icon={faArrowRightFromBracket} />}
           onClick={handleLogout}
         >
