@@ -16,6 +16,11 @@ import {
   ModalFooter,
   useDisclosure,
   useToast,
+  Card,
+  Heading,
+  CardHeader,
+  CardBody,
+  Flex,
 } from "@chakra-ui/react";
 import axios from "axios";
 
@@ -80,35 +85,45 @@ export function MemberView() {
   }
 
   return (
-    <Box>
-      <h1>{member.id}님 정보</h1>
-      <FormControl>
-        <FormLabel>password</FormLabel>
-        <Input type="text" value={member.password} readOnly />
-      </FormControl>
-      <FormControl>
-        <FormLabel>email</FormLabel>
-        <Input value={member.email} readOnly />
-      </FormControl>
-      <FormControl>
-        <FormLabel>nickName</FormLabel>
-        <Input value={member.nickName} readOnly />
-      </FormControl>
-      <Button
-        colorScheme="pink"
-        onClick={() => navigate("/member/edit?" + params.toString())}
-      >
-        수정
-      </Button>
-      <Button colorScheme="blue" onClick={onOpen}>
-        탈퇴
-      </Button>
+    <Center>
+      <Card w={"lg"}>
+        <CardHeader>
+          <Heading>{member.id}님 정보</Heading>
+        </CardHeader>
+        <CardBody>
+          <FormControl mb={2}>
+            <FormLabel>password</FormLabel>
+            <Input type="text" value={member.password} readOnly />
+          </FormControl>
+          <FormControl mb={2}>
+            <FormLabel>별명</FormLabel>
+            <Input value={member.nickName} readOnly></Input>
+          </FormControl>
+          <FormControl mb={2}>
+            <FormLabel>email</FormLabel>
+            <Input value={member.email} readOnly />
+          </FormControl>
+        </CardBody>
+        <CardFooter>
+          <Flex gap={2}>
+            <Button
+              colorScheme="purple"
+              onClick={() => navigate("/member/edit?" + params.toString())}
+            >
+              수정
+            </Button>
+            <Button colorScheme="red" onClick={onOpen}>
+              탈퇴
+            </Button>
+          </Flex>
+        </CardFooter>
+      </Card>
 
-      {/* 삭제 모달*/}
+      {/* 탈퇴 모달 */}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>삭제 확인</ModalHeader>
+          <ModalHeader>탈퇴 확인</ModalHeader>
           <ModalCloseButton />
           <ModalBody>탈퇴 하시겠습니까?</ModalBody>
 
@@ -120,6 +135,6 @@ export function MemberView() {
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </Box>
+    </Center>
   );
 }
