@@ -48,43 +48,57 @@ export function NavBar() {
     <Flex>
       {isAuthenticated() && <Box>{login.nickName} 님</Box>}
 
-      <Button onClick={() => navigate("/")}>
-        <FontAwesomeIcon icon={faHouse} />
-        home
+      <Button
+        leftIcon={<FontAwesomeIcon icon={faHouse} />}
+        onClick={() => navigate("/")}
+      >
+        HOME
       </Button>
       {isAuthenticated() && (
-        <Button onClick={() => navigate("/write")}>
-          <FontAwesomeIcon icon={faFeatherPointed} />
+        <Button
+          leftIcon={<FontAwesomeIcon icon={faFeatherPointed} />}
+          onClick={() => navigate("/write")}
+        >
           write
         </Button>
       )}
       {isAuthenticated() || (
-        <Button onClick={() => navigate("/signup")}>
-          <FontAwesomeIcon icon={faUserPlus} />
+        <Button
+          leftIcon={<FontAwesomeIcon icon={faUserPlus} />}
+          onClick={() => navigate("/signup")}
+        >
           signup
         </Button>
       )}
       {isAdmin() && (
-        <Button onClick={() => navigate("/member/list")}>
-          <FontAwesomeIcon icon={faAddressBook} />
+        <Button
+          leftIcon={<FontAwesomeIcon icon={faAddressBook} />}
+          onClick={() => navigate("/member/list")}
+        >
           회원목록
         </Button>
       )}
       {isAuthenticated() && (
-        <Button onClick={() => navigate("/member?" + urlParams.toString())}>
-          <FontAwesomeIcon icon={faCircleInfo} />
-          회원정보
+        <Button
+          leftIcon={<FontAwesomeIcon icon={faCircleInfo} />}
+          onClick={() => navigate("/member?" + urlParams.toString())}
+        >
+          {login.nickName}님
         </Button>
       )}
       {isAuthenticated() || (
-        <Button onClick={() => navigate("/login")}>
-          <FontAwesomeIcon icon={faArrowRightToBracket} />
+        <Button
+          leftIcon={<FontAwesomeIcon icon={faArrowRightToBracket} />}
+          onClick={() => navigate("/login")}
+        >
           로그인
         </Button>
       )}
       {isAuthenticated() && (
-        <Button onClick={handleLogout}>
-          <FontAwesomeIcon icon={faArrowRightFromBracket} />
+        <Button
+          leftIcon={<FontAwesomeIcon icon={faArrowRightFromBracket} />}
+          onClick={handleLogout}
+        >
           로그아웃
         </Button>
       )}
