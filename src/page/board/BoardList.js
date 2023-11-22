@@ -101,15 +101,19 @@ function SearchComponent() {
   return (
     <Center mt={7}>
       <Flex gap={1}>
-        <Select
-          defaultValue="all"
-          onChange={(e) => setCategory(e.target.value)}
-        >
-          <option value="all">전체</option>
-          <option value="title">제목</option>
-          <option value="content">본문</option>
-        </Select>
-        <Input value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+        <Box>
+          <Select
+            defaultValue="all"
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="all">전체</option>
+            <option value="title">제목</option>
+            <option value="content">본문</option>
+          </Select>
+        </Box>
+        <Box>
+          <Input value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+        </Box>
         <Button onClick={handleSearch}>
           <FontAwesomeIcon icon={faSearch} />
         </Button>
