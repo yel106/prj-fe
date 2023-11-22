@@ -1,10 +1,9 @@
-import { Box, Button, Flex, Spacer, useToast } from "@chakra-ui/react";
+import { Button, Flex, Spacer, useToast } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import { LoginContext } from "./LogInProvider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import {
   faAddressBook,
   faArrowRightFromBracket,
@@ -75,7 +74,7 @@ export function NavBar() {
           leftIcon={<FontAwesomeIcon icon={faUserPlus} />}
           onClick={() => navigate("/signup")}
         >
-          signup
+          회원가입
         </Button>
       )}
       {isAdmin() && (
