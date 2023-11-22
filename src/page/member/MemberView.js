@@ -93,16 +93,16 @@ export function MemberView() {
           <Heading>{member.id}님 정보</Heading>
         </CardHeader>
         <CardBody>
-          <FormControl mb={2}>
-            <FormLabel>password</FormLabel>
-            <Input type="text" value={member.password} readOnly />
-          </FormControl>
-          <FormControl mb={2}>
-            <FormLabel>별명</FormLabel>
+          <FormControl mb={5}>
+            <FormLabel>닉네임</FormLabel>
             <Input value={member.nickName} readOnly></Input>
           </FormControl>
-          <FormControl mb={2}>
-            <FormLabel>email</FormLabel>
+          <FormControl mb={5}>
+            <FormLabel>비밀번호</FormLabel>
+            <Input type="text" value={member.password} readOnly />
+          </FormControl>
+          <FormControl mb={5}>
+            <FormLabel>이메일</FormLabel>
             <Input value={member.email} readOnly />
           </FormControl>
         </CardBody>

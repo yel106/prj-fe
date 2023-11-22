@@ -4,6 +4,7 @@ import {
   Card,
   CardBody,
   CardHeader,
+  Center,
   Flex,
   Heading,
   Modal,
@@ -24,6 +25,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { DeleteIcon, EditIcon, NotAllowedIcon } from "@chakra-ui/icons";
 import { LoginContext } from "./LogInProvider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComment, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 function CommentForm({ boardId, isSubmitting, onSubmit }) {
   const [comment, setComment] = useState("");
@@ -34,10 +37,18 @@ function CommentForm({ boardId, isSubmitting, onSubmit }) {
 
   return (
     <Box>
-      <Textarea value={comment} onChange={(e) => setComment(e.target.value)} />
-      <Button isDisabled={isSubmitting} onClick={handleSubmit}>
-        쓰기
-      </Button>
+      <Flex>
+        <Textarea
+          placeholder="댓글을 작성해주세요."
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+        />
+        <Center isDisabled={isSubmitting} onClick={handleSubmit}>
+          <Button h={"full"} size={"lg"}>
+            <FontAwesomeIcon icon={faPaperPlane} />
+          </Button>
+        </Center>
+      </Flex>
     </Box>
   );
 }
@@ -262,12 +273,24 @@ export function CommentContainer({ boardId }) {
   }
   return (
     <Box>
+      <Center mt={10}>
+        <Box w={"lg"}>
+          <Heading>
+            <FontAwesomeIcon icon={faComment} /> COMMENTS
+          </Heading>
+        </Box>
+      </Center>
+
       {isAuthenticated() && (
-        <CommentForm
-          boardId={boardId}
-          isSubmitting={isSubmitting}
-          onSubmit={handleSubmit}
-        />
+        <Center mt={10}>
+          <Box w={"lg"}>
+            <CommentForm
+              boardId={boardId}
+              isSubmitting={isSubmitting}
+              onSubmit={handleSubmit}
+            />
+          </Box>
+        </Center>
       )}
       <CommentList
         boardId={boardId}
