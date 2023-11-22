@@ -25,8 +25,8 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { DeleteIcon, EditIcon, NotAllowedIcon } from "@chakra-ui/icons";
 import { LoginContext } from "./LogInProvider";
+import { faComments, faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 function CommentForm({ boardId, isSubmitting, onSubmit }) {
   const [comment, setComment] = useState("");
@@ -130,6 +130,7 @@ function CommentItem({
           <Box>
             {isEditing || (
               <Button
+                variant="ghost"
                 size="xs"
                 colorScheme="purple"
                 onClick={() => setIsEditing(true)}
@@ -139,6 +140,7 @@ function CommentItem({
             )}
             {isEditing && (
               <Button
+                variant="ghost"
                 size="xs"
                 colorScheme="gray"
                 onClick={() => setIsEditing(false)}
@@ -147,6 +149,7 @@ function CommentItem({
               </Button>
             )}
             <Button
+              variant="ghost"
               onClick={() => onDeleteModalOpen(comment.id)}
               size="xs"
               colorScheme="red"
@@ -169,24 +172,23 @@ function CommentList({
   const { hasAccess } = useContext(LoginContext);
 
   return (
-    <Card>
-      <CardHeader>
-        <Heading size="md">댓글 리스트</Heading>
-      </CardHeader>
-      <CardBody>
-        <Stack divider={<StackDivider />} spacing="4">
-          {commentList.map((comment) => (
-            <CommentItem
-              key={comment.id}
-              isSubmitting={isSubmitting}
-              setIsSubmitting={setIsSubmitting}
-              comment={comment}
-              onDeleteModalOpen={onDeleteModalOpen}
-            />
-          ))}
-        </Stack>
-      </CardBody>
-    </Card>
+    <Center mt={20}>
+      <Card w={"lg"}>
+        <CardBody>
+          <Stack divider={<StackDivider />} spacing="4">
+            {commentList.map((comment) => (
+              <CommentItem
+                key={comment.id}
+                isSubmitting={isSubmitting}
+                setIsSubmitting={setIsSubmitting}
+                comment={comment}
+                onDeleteModalOpen={onDeleteModalOpen}
+              />
+            ))}
+          </Stack>
+        </CardBody>
+      </Card>
+    </Center>
   );
 }
 
@@ -276,7 +278,7 @@ export function CommentContainer({ boardId }) {
       <Center mt={10}>
         <Box w={"lg"}>
           <Heading>
-            <FontAwesomeIcon icon={faComment} /> COMMENTS
+            <FontAwesomeIcon icon={faComments} /> COMMENTS
           </Heading>
         </Box>
       </Center>
