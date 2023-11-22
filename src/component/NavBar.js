@@ -1,4 +1,4 @@
-import { Box, Button, Flex, useToast } from "@chakra-ui/react";
+import { Box, Button, Flex, Spacer, useToast } from "@chakra-ui/react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useContext, useEffect } from "react";
@@ -46,8 +46,6 @@ export function NavBar() {
 
   return (
     <Flex>
-      {isAuthenticated() && <Box>{login.nickName} 님</Box>}
-
       <Button
         borderRadius={0}
         variant="ghost"
@@ -68,6 +66,7 @@ export function NavBar() {
           글 작성
         </Button>
       )}
+      <Spacer />
       {isAuthenticated() || (
         <Button
           borderRadius={0}
