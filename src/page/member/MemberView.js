@@ -21,6 +21,8 @@ import {
   CardHeader,
   CardBody,
   Flex,
+  CardFooter,
+  Center,
 } from "@chakra-ui/react";
 import axios from "axios";
 
